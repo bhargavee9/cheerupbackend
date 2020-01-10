@@ -1,4 +1,4 @@
-package com.cheerup.Repository;
+package com.cheerup.repository;
 
 
 

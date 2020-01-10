@@ -1,4 +1,4 @@
-package com.cheerup.Repository;
+package com.cheerup.repository;
 
 import java.util.List;
 import java.util.Optional;

@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.cheerup.Repository.UserRepository;
 import com.cheerup.dto.UserMoment;
 import com.cheerup.entity.User;
 import com.cheerup.exception.UserExistsException;
 import com.cheerup.exception.UserNotFoundException;
+import com.cheerup.repository.UserRepository;
 import com.cheerup.service.AuthenticateService;
 import com.cheerup.service.UserMomentService;
 

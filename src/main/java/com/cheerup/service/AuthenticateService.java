@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cheerup.Repository.UserRepository;
 import com.cheerup.entity.User;
+import com.cheerup.repository.UserRepository;
 
 @Service
 public class AuthenticateService {

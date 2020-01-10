@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cheerup.Repository.MomentRepository;
-import com.cheerup.Repository.UserRepository;
 import com.cheerup.dto.UserMoment;
 import com.cheerup.entity.Moment;
 import com.cheerup.entity.User;
+import com.cheerup.repository.MomentRepository;
+import com.cheerup.repository.UserRepository;
 
 @Service
 public class UserMomentService {
