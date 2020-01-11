@@ -54,15 +54,20 @@ public class UserMomentService {
         	 if(moment.get_id().equals(momentID))
         	  {
         		found = true;
-        		moment.setDescription(newMoment.getDescription());
-        		moment.setFeeling(newMoment.getFeeling());
-        		momentRepository.save(moment);
+        		if(newMoment!=null) {
+        		       moment.setDescription(newMoment.getDescription());
+        		       moment.setFeeling(newMoment.getFeeling());
+        		       momentRepository.save(moment);
+        		}
+        		else {
+        			momentRepository.delete(moment);
+        		}
         	 }
         }
         }
         
 		if(oldMoments == null || !found) {
-			new NotFoundException(" Moment with ID "+newMoment.get_id() + " not found");
+			throw new NotFoundException(" Moment with ID "+newMoment.get_id() + " not found");
 		}
 		
 	}
