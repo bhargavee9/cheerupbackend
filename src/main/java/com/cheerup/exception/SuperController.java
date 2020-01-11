@@ -14,17 +14,17 @@ import com.cheerup.dto.ResponseMessage;
 @RestController
 public class SuperController {
 	
-	@ExceptionHandler({UserExistsException.class,UserNotFoundException.class})
+	@ExceptionHandler({UserExistsException.class,NotFoundException.class})
 	public ResponseEntity<ResponseMessage> handleAuthenticateException(Exception ex) {
 		ResponseMessage responseMessage = new ResponseMessage();
 		responseMessage.setStatus("FAILED");
 		
 		if(ex instanceof UserExistsException) {
 			responseMessage.setMessageCode(ErrorMessage.CHEERUP001.toString());
-		    responseMessage.setMessage(ErrorMessage.CHEERUP001.getMessage());
+		    responseMessage.setMessage(ex.getMessage());
 	     }
 		
-		if(ex instanceof UserNotFoundException) {
+		if(ex instanceof NotFoundException) {
 			responseMessage.setMessageCode(ErrorMessage.CHEERUP002.toString());
 		    responseMessage.setMessage(ErrorMessage.CHEERUP002.getMessage());
 	     }

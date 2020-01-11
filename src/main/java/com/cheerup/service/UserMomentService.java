@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.cheerup.dto.UserMoment;
 import com.cheerup.entity.Moment;
 import com.cheerup.entity.User;
+import com.cheerup.exception.NotFoundException;
 import com.cheerup.repository.MomentRepository;
 import com.cheerup.repository.UserRepository;
 
@@ -21,11 +22,13 @@ public class UserMomentService {
 	@Autowired
 	UserRepository userRepository;
 	
-	public void saveUserMoment(UserMoment userMoment) {
+	public void saveUserMoment(UserMoment userMoment) throws NotFoundException {
 		
 		User user = userRepository.findByUsername(userMoment.getUsername());
 		
-		//TODO : If user is null throw exception
+		if(user == null) {
+			throw new NotFoundException("User "+ userMoment.getUsername()+ " not present");
+		}
 		
 		Moment moment = userMoment.getMoment();
 		momentRepository.save(moment);
@@ -34,5 +37,37 @@ public class UserMomentService {
 		userRepository.save(user);
 		
 	}
+
+	public void updateMoment(UserMoment userMoment, String momentID) throws NotFoundException {
+
+		User user = userRepository.findByUsername(userMoment.getUsername());
+		if(user == null) {
+			throw new NotFoundException("User "+ userMoment.getUsername()+ " not present");
+		}
+	    
+		Moment newMoment = userMoment.getMoment();
+        List<Moment> oldMoments = user.getMoments();
+        Boolean found = false;
+
+        if(oldMoments != null) {
+           for(Moment moment : oldMoments) {
+        	 if(moment.get_id().equals(momentID))
+        	  {
+        		found = true;
+        		moment.setDescription(newMoment.getDescription());
+        		moment.setFeeling(newMoment.getFeeling());
+        		momentRepository.save(moment);
+        	 }
+        }
+        }
+        
+		if(oldMoments == null || !found) {
+			new NotFoundException(" Moment with ID "+newMoment.get_id() + " not found");
+		}
+		
+	}
+	
+	
+	
 
 }
