@@ -19,7 +19,7 @@ import com.cheerup.repository.UserRepository;
 import com.cheerup.service.AuthenticateService;
 import com.cheerup.service.UserMomentService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "https://bhargavee9.github.io/cheerup", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/")
 public class AuthenticateController {

@@ -3,6 +3,7 @@ package com.cheerup.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import com.cheerup.dto.ResponseMessage;
 
 @ControllerAdvice
 @RestController
+@CrossOrigin(origins = "https://bhargavee9.github.io/cheerup", maxAge = 3600)
 public class SuperController {
 	
 	@ExceptionHandler({UserExistsException.class,NotFoundException.class})
