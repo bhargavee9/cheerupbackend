@@ -13,7 +13,7 @@ import com.cheerup.dto.ResponseMessage;
 
 @ControllerAdvice
 @RestController
-@CrossOrigin(origins = "https://bhargavee9.github.io/cheerup", maxAge = 3600)
+@CrossOrigin(origins = "http://cheerup1.herokuapp.com", maxAge = 3600)
 public class SuperController {
 	
 	@ExceptionHandler({UserExistsException.class,NotFoundException.class})
