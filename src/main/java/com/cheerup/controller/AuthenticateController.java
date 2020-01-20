@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.cheerup.dto.UserMoment;
+import com.cheerup.entity.Moment;
 import com.cheerup.entity.User;
-import com.cheerup.exception.UserExistsException;
 import com.cheerup.exception.NotFoundException;
+import com.cheerup.exception.UserExistsException;
 import com.cheerup.repository.UserRepository;
 import com.cheerup.service.AuthenticateService;
-import com.cheerup.service.UserMomentService;
+import com.cheerup.service.MomentService;
 
-@CrossOrigin(origins = "http://cheerup1.herokuapp.com", maxAge = 3600)
+@CrossOrigin(origins = {"http://cheerup1.herokuapp.com","http://localhost:4200"}, maxAge = 3600)
 @RestController
 @RequestMapping(value = "/")
 public class AuthenticateController {
@@ -28,7 +28,7 @@ public class AuthenticateController {
 	AuthenticateService authenticateService;
 	
 	@Autowired
-	UserMomentService userMomentService;
+	MomentService userMomentService;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -62,23 +62,31 @@ public class AuthenticateController {
 		   return redirectView;
 	 }
 	
-	@PostMapping("user/moment")
-   	public RedirectView addMoment(@RequestBody UserMoment userMoment) throws NotFoundException {
+	@PostMapping("{username}/moment")
+   	public RedirectView addMoment(@PathVariable String username , @RequestBody Moment userMoment) throws NotFoundException {
 
-		   userMomentService.saveUserMoment(userMoment);
+		   userMomentService.saveUserMoment(username,userMoment);
 		   RedirectView redirectView = new RedirectView();
 		   redirectView.setUrl("/success");
 		   return redirectView;
 		
 	 }
 	
-	@PutMapping("user/moment/{momentID}")
-   	public RedirectView updateMoment(@RequestBody UserMoment userMoment, @PathVariable("momentID") String momentID) throws NotFoundException {
+	@PutMapping("{username}/moment/{momentID}")
+   	public RedirectView updateMoment(@PathVariable String username,@RequestBody Moment userMoment, @PathVariable("momentID") String momentID) throws NotFoundException {
 
-		   userMomentService.updateMoment(userMoment, momentID);
+		   userMomentService.updateMoment(username,userMoment, momentID);
 		   RedirectView redirectView = new RedirectView();
 		   redirectView.setUrl("/success");
 		   return redirectView;
+		
+	 }
+	
+	@GetMapping("{username}/moment")
+   	public Moment getMoment(@PathVariable String username) throws NotFoundException {
+
+		  Moment moment = userMomentService.getRandomMoment(username);
+		  return moment;
 		
 	 }
 }
