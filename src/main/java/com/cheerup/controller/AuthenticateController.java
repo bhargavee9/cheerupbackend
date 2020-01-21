@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.cheerup.constant.ErrorMessage;
 import com.cheerup.entity.Moment;
 import com.cheerup.entity.User;
 import com.cheerup.exception.NotFoundException;
@@ -43,7 +44,7 @@ public class AuthenticateController {
 		
 	   User userData = authenticateService.loginUser(userdto);
 	   if(userData == null) {
-		   throw new NotFoundException("User "+userdto.getUsername() + " doesnot exist ");
+			throw new NotFoundException(ErrorMessage.CHEERUP002.name());
 		   
 	   }
 	  return userData; 

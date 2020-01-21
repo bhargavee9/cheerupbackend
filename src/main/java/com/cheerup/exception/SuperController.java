@@ -27,8 +27,9 @@ public class SuperController {
 	     }
 		
 		if(ex instanceof NotFoundException) {
-			responseMessage.setMessageCode(ErrorMessage.CHEERUP002.toString());
-		    responseMessage.setMessage(ErrorMessage.CHEERUP002.getMessage());
+			responseMessage.setMessageCode(ex.getMessage());
+			ErrorMessage errorMessage = ErrorMessage.valueOf(ex.getMessage());
+		    responseMessage.setMessage(errorMessage.getMessage());
 	     }
 		
 		return new ResponseEntity<ResponseMessage>(responseMessage,HttpStatus.BAD_REQUEST);

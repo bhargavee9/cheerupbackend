@@ -1,11 +1,13 @@
 package com.cheerup.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cheerup.constant.ErrorMessage;
 import com.cheerup.entity.Moment;
 import com.cheerup.entity.User;
 import com.cheerup.exception.NotFoundException;
@@ -26,11 +28,15 @@ public class MomentService {
 		User user = userRepository.findByUsername(username);
 		
 		if(user == null) {
-			throw new NotFoundException("User "+ username + " not present");
+			throw new NotFoundException(ErrorMessage.CHEERUP002.name());
 		}
 		
 		momentRepository.save(moment);
 		List<Moment> moments = user.getMoments();
+		if(moments == null) {
+			moments = new ArrayList<>();
+			user.setMoments(moments);
+		}
 		moments.add(moment);
 		userRepository.save(user);
 		
@@ -40,7 +46,7 @@ public class MomentService {
 
 		User user = userRepository.findByUsername(username);
 		if(user == null) {
-			throw new NotFoundException("User "+ username+ " not present");
+			throw new NotFoundException(ErrorMessage.CHEERUP002.name());
 		}
 	    
         List<Moment> oldMoments = user.getMoments();
@@ -64,7 +70,7 @@ public class MomentService {
         }
         
 		if(oldMoments == null || !found) {
-			throw new NotFoundException(" Moment with ID "+newMoment.get_id() + " not found");
+			throw new NotFoundException(ErrorMessage.CHEERUP002.name());
 		}
 		
 	}
@@ -72,7 +78,11 @@ public class MomentService {
 	public Moment getRandomMoment(String username) throws NotFoundException {
 		User user = userRepository.findByUsername(username);
 		if(user == null) {
-			throw new NotFoundException("User "+ username+ " not present");
+			throw new NotFoundException(ErrorMessage.CHEERUP002.name());
+		}
+		if(user.getMoments() == null) {
+			throw new NotFoundException(ErrorMessage.CHEERUP003.name());
+
 		}
 		int numberofMoments = user.getMoments().size();
 		
