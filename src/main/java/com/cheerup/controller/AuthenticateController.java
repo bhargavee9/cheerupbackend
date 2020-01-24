@@ -20,7 +20,7 @@ import com.cheerup.repository.UserRepository;
 import com.cheerup.service.AuthenticateService;
 import com.cheerup.service.MomentService;
 
-@CrossOrigin(origins = {"https://cheerup1.herokuapp.com","http://localhost:4200"}, maxAge = 3600)
+@CrossOrigin(origins = {"https://myjournal9.herokuapp.com","http://localhost:4200"}, maxAge = 3600)
 @RestController
 @RequestMapping(value = "/")
 public class AuthenticateController {
